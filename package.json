@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "setup-project": "npm i && cd client && npm i",
-    "dev":"nodemon server"
+    "dev": "nodemon server"
   },
   "keywords": [],
   "author": "",
