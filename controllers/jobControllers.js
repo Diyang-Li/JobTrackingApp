@@ -2,6 +2,7 @@ import "express-async-errors";
 import { StatusCodes } from "http-status-codes";
 import Job from "../models/JobModel.js";
 import { nanoid } from "nanoid";
+import { NotFoundError } from "../Errors/customErrors.js";
 
 let jobs = [
   { id: nanoid(), company: "apple", position: "front-end" },
@@ -24,7 +25,7 @@ export const getJob = async (req, res) => {
   const { id } = req.params;
   const job = await Job.findById(id);
   if (!job) {
-    throw new Error(`no job with id ${id}`);
+    throw new NotFoundError(`no job with id ${id}`);
   }
   res.status(StatusCodes.OK).json({ job });
 };
