@@ -2,7 +2,8 @@ import "express-async-errors";
 import { StatusCodes } from "http-status-codes";
 import User from "../models/UserModel.js";
 import bcrypt from "bcryptjs";
-import { hashPassword } from "../util/passwordUtils.js";
+import { hashPassword, comparePassword } from "../util/passwordUtils.js";
+import { UnauthenticatedError } from "../Errors/customErrors.js";
 export const register = async (req, res) => {
   // const jobs = await Job.find({ company: "intel" });
   const isFirstAccount = (await User.countDocuments()) === 0;
@@ -16,5 +17,11 @@ export const register = async (req, res) => {
 };
 export const login = async (req, res) => {
   // const jobs = await Job.find({ company: "intel" });
+  const user = await User.findOne({ email: req.body.email });
+  const isValid =
+    user && (await comparePassword(req.body.password, user.password));
+  if (!isValid) {
+    throw new UnauthenticatedError("invalid credentials");
+  }
   res.send("login");
 };
