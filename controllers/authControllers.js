@@ -4,6 +4,7 @@ import User from "../models/UserModel.js";
 import bcrypt from "bcryptjs";
 import { hashPassword, comparePassword } from "../util/passwordUtils.js";
 import { UnauthenticatedError } from "../Errors/customErrors.js";
+import { createJWT } from "../util/tokenUtils.js";
 export const register = async (req, res) => {
   // const jobs = await Job.find({ company: "intel" });
   const isFirstAccount = (await User.countDocuments()) === 0;
@@ -23,5 +24,13 @@ export const login = async (req, res) => {
   if (!isValid) {
     throw new UnauthenticatedError("invalid credentials");
   }
-  res.send("login");
+  const token = createJWT({ userId: user._id, role: user.role });
+
+  const oneDay = 1000 * 60 * 60 * 24;
+  res.cookie("token", token, {
+    httpOnly: true,
+    expires: new Date(Date.now() + oneDay),
+    secure: process.env.NODE_ENV === "production",
+  });
+  res.status(StatusCodes.OK).json({ msg: "user logged in" });
 };

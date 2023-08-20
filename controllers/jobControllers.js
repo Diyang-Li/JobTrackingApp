@@ -8,14 +8,12 @@ let jobs = [
   { id: nanoid(), company: "google", position: "back-end" },
 ];
 export const getAllJobs = async (req, res) => {
-  // const jobs = await Job.find({ company: "intel" });
-  const jobs = await Job.find();
+  const jobs = await Job.find({ createdBy: req.user.userId });
   res.status(StatusCodes.OK).json({ jobs });
 };
 
 export const createJob = async (req, res) => {
-  // const { company, position } = req.body;
-
+  req.body.createdBy = req.user.userId;
   const job = await Job.create(req.body);
   res.status(StatusCodes.CREATED).json({ job });
 };
