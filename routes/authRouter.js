@@ -7,7 +7,7 @@ import {
 } from "../middleware/validationMiddleware.js";
 
 router.post("/register", validateRegisterInput, register);
-router.get("/login", validateLoginInput, login);
+router.post("/login", validateLoginInput, login);
 router.get("/logout", logout);
 
 export default router;

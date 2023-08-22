@@ -18,6 +18,7 @@ export const register = async (req, res) => {
 };
 export const login = async (req, res) => {
   // const jobs = await Job.find({ company: "intel" });
+  console.log(req.body);
   const user = await User.findOne({ email: req.body.email });
   const isValid =
     user && (await comparePassword(req.body.password, user.password));
