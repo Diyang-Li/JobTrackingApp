@@ -14,7 +14,7 @@ const withValidationErrors = (validateValues) => {
     validateValues,
     (req, res, next) => {
       const errors = validationResult(req);
-      console.log(errors.isEmpty());
+      // console.log(errors.isEmpty());
       if (!errors.isEmpty()) {
         const errorMessages = errors.array().map((error) => error.msg);
         // console.log(errorMessages);

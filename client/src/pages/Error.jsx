@@ -5,6 +5,7 @@ import HomeLayout from "./HomeLayout";
 
 const Error = () => {
   const error = useRouteError();
+  console.log(error);
   if (error.status == 404) {
     return (
       <Wrapper>
