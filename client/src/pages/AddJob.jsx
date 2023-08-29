@@ -1,4 +1,4 @@
-import { FormRow, FormRowSelect } from "../components";
+import { FormRow, FormRowSelect, SubmitBtn } from "../components";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
 import { useOutletContext } from "react-router-dom";
 import { JOB_TYPE, JOB_STATUS } from "./../../../util/constants";
@@ -49,13 +49,7 @@ const AddJob = () => {
             defaultValue={JOB_TYPE.INTERNSHIP}
             list={Object.values(JOB_TYPE)}
           />
-          <button
-            type="submit"
-            className="btn btn-block form-btn "
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "submitting..." : "submit"}
-          </button>
+          <SubmitBtn formBtn={true} />
         </div>
       </Form>
     </Wrapper>

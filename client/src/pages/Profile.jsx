@@ -1,4 +1,4 @@
-import { FormRow } from "../components";
+import { FormRow, SubmitBtn } from "../components";
 import Wrapper from "../assets/wrappers/DashboardFormPage";
 import { useOutlet, useOutletContext } from "react-router-dom";
 import { useNavigation, Form } from "react-router-dom";
@@ -53,13 +53,7 @@ const Profile = () => {
           />
           <FormRow type={"email"} name={"email"} defaultValue={email} />
           <FormRow type={"text"} name={"location"} defaultValue={location} />
-          <button
-            className="btn btn-block form-btn"
-            type="submit"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "submitting..." : "submit"}
-          </button>
+          <SubmitBtn formBtn={true} />
         </div>
       </Form>
     </Wrapper>
